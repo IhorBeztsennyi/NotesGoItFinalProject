@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserConverter {
 
-    private UserDto toDto(UserDao dao) {
+    public UserDto toDto(UserDao dao) {
         UserDto dto = new UserDto();
         dto.setUsername(dao.getUsername());
         dto.setEmail(dao.getEmail());
@@ -14,7 +14,7 @@ public class UserConverter {
         return dto;
     }
 
-    private UserDao toDao(UserDto dto) {
+    public UserDao toDao(UserDto dto) {
         UserDao dao = new UserDao();
         dao.setUsername(dto.getUsername());
         dao.setEmail(dao.getEmail());
