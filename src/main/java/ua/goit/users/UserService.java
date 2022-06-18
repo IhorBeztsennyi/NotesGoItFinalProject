@@ -3,9 +3,11 @@ package ua.goit.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.users.exception.UserEmailAlreadyExistException;
+import ua.goit.users.exception.UserNotFoundException;
 import ua.goit.users.exception.UsernameAlreadyExistException;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -63,4 +65,8 @@ public class UserService {
     }
 
 
+    public UserDto findById(UUID id) {
+        return userConverter.toDto(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(String.format("User with id - %s does not exist", id))));
+    }
 }
