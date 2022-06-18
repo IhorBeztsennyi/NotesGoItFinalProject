@@ -19,9 +19,7 @@ public class UserDao {
     }
 
     @Id
-    @Type(type = "org.hibernate.type.PostgresUUIDType")
-    @Column(name = "id", columnDefinition = "uuid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     public UUID getId() {
         return id;
     }

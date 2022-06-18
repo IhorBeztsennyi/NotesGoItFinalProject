@@ -1,11 +1,14 @@
 package ua.goit.note;
 
-public class NoteDto {
+import ua.goit.users.UserDto;
 
+public class NoteDto {
 
     private String name;
     private String content;
     private Access accessType;
+
+    private UserDto user;
 
     public NoteDto() {
     }
@@ -32,5 +35,13 @@ public class NoteDto {
 
     public void setAccessType(Access accessType) {
         this.accessType = accessType;
+    }
+
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

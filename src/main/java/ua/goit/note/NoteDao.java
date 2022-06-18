@@ -1,24 +1,25 @@
 package ua.goit.note;
 
 import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.Id;
+import ua.goit.users.UserDao;
 
 import javax.persistence.*;
 import java.util.UUID;
-
+@Entity
+@Table(name = "note")
+@Cacheable
 public class NoteDao {
-
     private UUID id;
     private String name;
     private String content;
     private Access accessType;
 
+    private UserDao user;
+
     public NoteDao() {
     }
     @Id
-    @Type(type="org.hibernate.type.PostgresUUIDType")
-    @Column(name="id",columnDefinition="uuid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     public UUID getId(){
         return id;
     }
@@ -50,5 +51,15 @@ public class NoteDao {
 
     public void setAccessType(Access accessType) {
         this.accessType = accessType;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", nullable = false)
+    public UserDao getUser() {
+        return user;
+    }
+
+    public void setUser(UserDao user) {
+        this.user = user;
     }
 }
