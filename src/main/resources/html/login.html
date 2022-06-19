@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:font-family="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:utext="${title}"></title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body style="padding-left: 15px;padding-right: 20px; background-image:url(https://media.istockphoto.com/vectors/cute-gray-cat-waving-paw-cartoon-vector-illustration-vector-id1317495176?k=20&m=1317495176&s=612x612&w=0&h=TwAzMWgQ981YWHHVszcv62yHgBDlSnBU3aauLOE07-s=);
+ background-size: 1000px auto;
+
+ background-position:  67% 1%;
+ background-repeat: no-repeat;
+font-family: 'Comic Sans MS', arial, serif;">
+<div class="container">
+
+    <form action="/j_spring_security_check" method="POST">
+        <h2 style="text-align: center;font-family: Comic Sans MS;  </p>margin-top: 50px;"><span  th:utext="${message}"></span></h2>
+        <div class="card-body" style="text-align: center">
+
+            <div>
+                <input type="text" class="form-control form-control-sm" name="userName" placeholder="Enter your username"
+                       th:required="require"  style=" max-width: 300px; padding: 10px;font-family: Comic Sans MS; margin: 0 auto">
+            </div>
+            <div class="pt-3" style="text-align: center">
+
+                <input class="form-control form-control-sm" type="password" name="password" placeholder="Enter your password"
+                       th:required="required"   style=" max-width: 300px;font-family: Comic Sans MS; padding: 10px; margin: auto"/>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit"  font-family = "Comic Sans MS"  style="margin-top: 15px;font-size:27px; background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS">LOG IN</button>
+
+        </div>
+        <h5 class="text-center"><a th:href="@{/noteUser/register}" class="btn btn-lg btn-primary" style="background-color: #5CEC5C;border-color: #07302c;color:white;font-size:27px; width: 20%;
+    height: 60px;">Create account</a>
+            <br>
+            <td style="background-color:#FEFFFE;font-family: Comic Sans MS;width: 80%;"
+                th:text="${error} ? 'Wrong login or password. Please, try again.' : ''"></td>
+        </h5>
+    </form>
+</div>
+</body>
+</html>
