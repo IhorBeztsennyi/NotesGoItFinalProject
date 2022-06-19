@@ -1,8 +1,9 @@
 package ua.goit.users;
 
-import org.hibernate.annotations.Type;
+import ua.goit.note.NoteDao;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -14,6 +15,16 @@ public class UserDao {
     private String email;
     private String password;
     private UserRole userRole;
+    private Set<NoteDao> notes;
+
+    public UserDao(UUID id, String username, String email, String password, UserRole userRole, Set<NoteDao> notes) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.notes = notes;
+    }
 
     public UserDao() {
     }
@@ -63,5 +74,14 @@ public class UserDao {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    public Set<NoteDao> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<NoteDao> notes) {
+        this.notes = notes;
     }
 }

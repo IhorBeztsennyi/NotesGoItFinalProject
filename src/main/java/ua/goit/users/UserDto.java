@@ -1,7 +1,10 @@
 package ua.goit.users;
 
+import ua.goit.note.NoteDao;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 import java.util.UUID;
 
 public class UserDto {
@@ -11,6 +14,7 @@ public class UserDto {
     private String email;
     private String password;
     private UserRole userRole;
+    private Set<NoteDao> notes;
 
     public UserDto() {
     }
@@ -57,5 +61,13 @@ public class UserDto {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public Set<NoteDao> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<NoteDao> notes) {
+        this.notes = notes;
     }
 }
