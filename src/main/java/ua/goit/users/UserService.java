@@ -69,4 +69,9 @@ public class UserService {
         return userConverter.toDto(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(String.format("User with id - %s does not exist", id))));
     }
+
+    public UserDto loadUserByUserName(String username) {
+        return userConverter.toDto(userRepository.findByUsername(username).orElseThrow(() ->
+                new UserNotFoundException(String.format("User with username %s not exists", username))));
+    }
 }

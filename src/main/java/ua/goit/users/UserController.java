@@ -1,6 +1,7 @@
 package ua.goit.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,7 +45,7 @@ public class UserController {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.save(user);
-        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex ) {
+        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
             return "registration";
         }
@@ -125,7 +126,7 @@ public class UserController {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.addOrUpdate(user);
             model.setViewName("redirect:/users/list");
-        }  catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
+        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
             model.addObject("message", ex.getMessage());
             List<UserRole> userRoles = Arrays.asList(UserRole.values());
             model.addObject("userRoles", userRoles);
