@@ -17,8 +17,8 @@
 font-family: 'Comic Sans MS', arial, serif;">
 <div class="container">
 
-    <form action="/j_spring_security_check" method="POST">
-        <h2 style="text-align: center;font-family: Comic Sans MS;  </p>margin-top: 50px;"><span  th:utext="${message}"></span></h2>
+    <form action="login" method="POST">
+        <h2 style="text-align: center;font-family: Comic Sans MS;  margin-top: 50px;"><span  th:utext="${message}"></span></h2>
         <div class="card-body" style="text-align: center">
 
             <div>
@@ -34,7 +34,7 @@ font-family: 'Comic Sans MS', arial, serif;">
             <button class="btn btn-lg btn-primary" type="submit"  font-family = "Comic Sans MS"  style="margin-top: 15px;font-size:27px; background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS">LOG IN</button>
 
         </div>
-        <h5 class="text-center"><a th:href="@{/noteUser/register}" class="btn btn-lg btn-primary" style="background-color: #5CEC5C;border-color: #07302c;color:white;font-size:27px; width: 20%;
+        <h5 class="text-center"><a th:href="@{/users/registration}" class="btn btn-lg btn-primary" style="background-color: #5CEC5C;border-color: #07302c;color:white;font-size:27px; width: 20%;
     height: 60px;">Create account</a>
             <br>
             <td style="background-color:#FEFFFE;font-family: Comic Sans MS;width: 80%;"
