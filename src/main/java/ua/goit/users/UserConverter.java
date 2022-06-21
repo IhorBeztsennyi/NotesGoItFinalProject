@@ -17,7 +17,7 @@ public class UserConverter {
     public UserDao toDao(UserDto dto) {
         UserDao dao = new UserDao();
         dao.setUsername(dto.getUsername());
-        dao.setEmail(dao.getEmail());
+        dao.setEmail(dto.getEmail());
         dao.setPassword(dto.getPassword());
         dao.setUserRole(dto.getUserRole());
         return dao;
