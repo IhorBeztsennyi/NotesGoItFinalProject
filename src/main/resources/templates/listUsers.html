@@ -16,7 +16,7 @@ background-size: 1000px auto;
 
  font-family: 'Comic Sans MS', arial, serif; ">
 <div sec:authorize="hasAuthority('ADMIN')">
-    <form th:action="@{/noteUser/listUsers}" method="GET">
+    <form th:action="@{/users/list}" method="GET">
     </form>
 </div>
 <div style="text-align: center; margin-top: 20px;">
@@ -28,20 +28,18 @@ background-size: 1000px auto;
 <table style="border: 3px black; background-color: #e1e1e194; width: 80%; " align="center">
     <thead style="border: black 20px; ">
     <tr align="center" th:border="3" style="border: black">
-        <th th:border="3" style="border: black; text-align: center"> ID</th>
         <th th:border="3" style="border: black; text-align: center">Username</th>
-        <th th:border="3" style="border: black; text-align: center"> Password</th>
-        <th th:border="3" style="border: black; text-align: center"> Role</th>
+        <th th:border="3" style="border: black; text-align: center">Email</th>
+        <th th:border="3" style="border: black; text-align: center">Role</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="noteUser : ${users}">
-        <td><span th:text="${noteUser.getId()}"> ID </span></td>
-        <td><span th:text="${noteUser.getUserName()}"> Username </span></td>
-        <td><span th:text="${noteUser.getPassword()}"> Password </span></td>
-        <td><span th:text="${noteUser.getUserRole()}"> Role </span></td>
+    <tr th:each="users : ${users}">
+        <td><span th:text="${users.getUsername()}"> Username </span></td>
+        <td><span th:text="${users.getEmail()}"> Password </span></td>
+        <td><span th:text="${users.getUserRole()}"> Role </span></td>
         <td align="center">
-            <a th:href="@{/noteUser/delete_user(id=${noteUser.getId()})}"  class="btn btn-danger">Delete </a>
+            <a th:href="@{/users/delete(id=${users.getId()})}"  class="btn btn-danger">Delete </a>
         </td>
     </tr>
 </table>

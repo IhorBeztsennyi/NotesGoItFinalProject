@@ -7,6 +7,7 @@ public class UserConverter {
 
     public UserDto toDto(UserDao dao) {
         UserDto dto = new UserDto();
+        dto.setId(dao.getId());
         dto.setUsername(dao.getUsername());
         dto.setEmail(dao.getEmail());
         dto.setPassword(dao.getPassword());
@@ -16,6 +17,7 @@ public class UserConverter {
 
     public UserDao toDao(UserDto dto) {
         UserDao dao = new UserDao();
+        dao.setId(dto.getId());
         dao.setUsername(dto.getUsername());
         dao.setEmail(dto.getEmail());
         dao.setPassword(dto.getPassword());
