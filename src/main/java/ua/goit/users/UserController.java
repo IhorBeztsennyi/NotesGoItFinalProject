@@ -31,26 +31,26 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping(name = "/registration")
-    public String getRegistrationForm() {
-        return "registration";
-    }
-
-    @PostMapping(name = "registration")
-    public String registrationUser(@ModelAttribute("userForm") @Valid UserDto user,
-                                   BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        try {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userService.save(user);
-        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
-            model.addAttribute("message", ex.getMessage());
-            return "registration";
-        }
-        return "login";
-    }
+//    @GetMapping(name = "/registration")
+//    public String getRegistrationForm() {
+//        return "registration";
+//    }
+//
+//    @PostMapping(name = "registration")
+//    public String registrationUser(@ModelAttribute("userForm") @Valid UserDto user,
+//                                   BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
+//        try {
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+//            userService.save(user);
+//        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
+//            model.addAttribute("message", ex.getMessage());
+//            return "registration";
+//        }
+//        return "login";
+//    }
 
 //    @GetMapping(path = "/list")
 //    public String getListUsers(Model model) {
