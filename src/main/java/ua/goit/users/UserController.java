@@ -66,58 +66,58 @@ public class UserController {
         return "redirect:/users/list";
     }
 
-    @ModelAttribute("userForm")
+    @ModelAttribute("user")
     public UserDto getDefaultUserDto() {
         return new UserDto();
     }
 
-//    @PostMapping(name = "/edit/form/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public String editUserForm(@PathVariable("id") UUID id, Model model) {
-//        UserDto user = userService.findById(id);
-//        model.addAttribute("user", user);
-//        List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//        model.addAttribute("userRoles", userRoles);
-//        return "editUserForm";
-//    }
-//
-//    @PostMapping(name = "/edit/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public ModelAndView editUser(@PathVariable("id") UUID id, @ModelAttribute("userForm") @Valid UserDto userDto,
-//                                 BindingResult bindingResult, ModelAndView model) {
-//        if (bindingResult.hasErrors()) {
-//            List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//            model.addObject("userRoles", userRoles);
-//            model.setViewName("editUserForm");
-//            model.setStatus(HttpStatus.BAD_REQUEST);
-//            return model;
-//        }
-//        try {
-//            UserDto user = userService.findById(id);
-//            user.setUsername(userDto.getUsername());
-//            user.setEmail(userDto.getEmail());
-//            user.setPassword(userDto.getPassword());
-//            user.setUserRole(userDto.getUserRole());
-//            if (user.getEmail().equals(userDto.getEmail()) | user.getUsername().equals(userDto.getUsername())) {
-//                userService.delete(userDto);
-//            }
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            userService.addOrUpdate(user);
-//            model.setViewName("redirect:/users/list");
-//        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
-//            model.addObject("message", ex.getMessage());
-//            List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//            model.addObject("userRoles", userRoles);
-//            model.setViewName("editUserForm");
-//        }
-//        return model;
-//    }
-//
-//    @PostMapping(name = "/delete/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public String deleteUser(@PathVariable("id") UUID id) {
-//        UserDto user = userService.findById(id);
-//        userService.delete(user);
-//        return "redirect:/users/list";
-//    }
+    @GetMapping(path = "/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String editUserForm(@PathVariable("id") UUID id, Model model) {
+        UserDto user = userService.findById(id);
+        model.addAttribute("user", user);
+        List<UserRole> userRoles = Arrays.asList(UserRole.values());
+        model.addAttribute("userRoles", userRoles);
+        return "editUser";
+    }
+
+    @PutMapping(path = "/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView editUser(@PathVariable("id") UUID id, @ModelAttribute("user") @Valid UserDto userDto,
+                                 BindingResult bindingResult, ModelAndView model) {
+        if (bindingResult.hasErrors()) {
+            List<UserRole> userRoles = Arrays.asList(UserRole.values());
+            model.addObject("userRoles", userRoles);
+            model.setViewName("editUser");
+            model.setStatus(HttpStatus.BAD_REQUEST);
+            return model;
+        }
+        try {
+            UserDto user = userService.findById(id);
+            user.setUsername(userDto.getUsername());
+            user.setEmail(userDto.getEmail());
+            user.setPassword(userDto.getPassword());
+            user.setUserRole(userDto.getUserRole());
+            if (user.getEmail().equals(userDto.getEmail()) | user.getUsername().equals(userDto.getUsername())) {
+                userService.delete(userDto);
+            }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.addOrUpdate(user);
+            model.setViewName("redirect:/users/list");
+        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
+            model.addObject("message", ex.getMessage());
+            List<UserRole> userRoles = Arrays.asList(UserRole.values());
+            model.addObject("userRoles", userRoles);
+            model.setViewName("editUser");
+        }
+        return model;
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteUser(@PathVariable("id") UUID id) {
+        UserDto user = userService.findById(id);
+        userService.delete(user);
+        return "redirect:/users/list";
+    }
 }
