@@ -38,34 +38,33 @@ public class UserController {
         return "listUsers";
     }
 
-//    @GetMapping(path = "/create/form")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public String createUserForm(Model model) {
-//        List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//        model.addAttribute("userRoles", userRoles);
-//        return "createUserForm";
-//    }
-//
-//    @PostMapping
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public String createUser(@ModelAttribute("userForm") @Valid UserDto user,
-//                             BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//            model.addAttribute("userRoles", userRoles);
-//            return "createUserForm";
-//        }
-//        try {
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            userService.addOrUpdate(user);
-//        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
-//            model.addAttribute("message", ex.getMessage());
-//            List<UserRole> userRoles = Arrays.asList(UserRole.values());
-//            model.addAttribute("userRoles", userRoles);
-//            return "createUserForm";
-//        }
-//        return "redirect:/users/list";
-//    }
+    @GetMapping(path = "/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String createUserForm(Model model) {
+        List<UserRole> userRoles = Arrays.asList(UserRole.values());
+        model.addAttribute("userRoles", userRoles);
+        return "createUser";
+    }
+
+    @PostMapping(path = "/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String createUser(@Valid UserDto user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<UserRole> userRoles = Arrays.asList(UserRole.values());
+            model.addAttribute("userRoles", userRoles);
+            return "createUser";
+        }
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.addOrUpdate(user);
+        } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
+            model.addAttribute("message", ex.getMessage());
+            List<UserRole> userRoles = Arrays.asList(UserRole.values());
+            model.addAttribute("userRoles", userRoles);
+            return "createUser";
+        }
+        return "redirect:/users/list";
+    }
 
     @ModelAttribute("userForm")
     public UserDto getDefaultUserDto() {
