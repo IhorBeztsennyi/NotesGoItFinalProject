@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:utext="${title}"></title>
+    <title th:utext="${title}">Notes List</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -16,7 +16,7 @@ background-size: 1000px auto;
  background-position:  50% 10%;
   background-repeat: no-repeat;
 font-family: 'Comic Sans MS', arial, serif;">
-<form th:action="@{/note/listNotes}" method="GET">
+<form th:action="@{/note/list}" method="GET">
 </form>
 <div style="text-align: center; margin-top: 50px;margin-bottom: 15px">
     <h1> <span th:utext="${message}"></span>

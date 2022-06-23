@@ -27,7 +27,7 @@ public class NoteController {
         this.userService = userService;
     }
     @GetMapping("/list")
-    public Page<NoteDto> getNotes(@PageableDefault(sort = "id", direction= Sort.Direction.DESC,size = 5) Pageable page,
+    public String getNotes(@PageableDefault(sort = "id", direction= Sort.Direction.DESC,size = 5) Pageable page,
                                   Principal currentlyLoggedUser, Model model){
         String username = currentlyLoggedUser.getName();
         UserDto user = userService.findByName(username);
@@ -35,7 +35,7 @@ public class NoteController {
         model.addAttribute("pageNumber", page.getPageNumber());
         model.addAttribute("pageSize", page.getPageSize());
         model.addAttribute("notes", notes);
-        return notes;
+        return "list_notes";
     }
     @PostMapping("/createNote")
     public String saveNote(NoteDto note, Principal currentlyLoggedUser){
@@ -47,7 +47,7 @@ public class NoteController {
         }catch (RuntimeException e){
             return e.getMessage();
         }
-        return "note/list";
+        return "redirect:/note/list";
     }
 
     @GetMapping("/editNote")
@@ -59,7 +59,7 @@ public class NoteController {
             return e.getMessage();
 
         }
-        return "note/updateNote";
+        return "updateNote";
     }
 
     @PutMapping("/updateNote")
@@ -72,7 +72,7 @@ public class NoteController {
         }catch (RuntimeException e){
             return e.getMessage();
         }
-        return "note/list";
+        return "redirect:/note/list";
     }
     @DeleteMapping("/deleteNote")
     public String deleteNote(@RequestParam UUID id){
@@ -81,7 +81,7 @@ public class NoteController {
         }catch (RuntimeException e){
             return e.getMessage();
         }
-        return "note/list";
+        return "redirect:/note/list";
     }
 
     public NoteDto findNoteByName(String name){
