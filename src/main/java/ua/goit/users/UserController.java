@@ -81,16 +81,14 @@ public class UserController {
         return "editUser";
     }
 
-    @PutMapping(path = "/edit/{id}")
+    @PostMapping(path = "/edit/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView editUser(@PathVariable("id") UUID id, @ModelAttribute("user") @Valid UserDto userDto,
-                                 BindingResult bindingResult, ModelAndView model) {
+    public String editUser(@PathVariable("id") UUID id, @Valid UserDto userDto,
+                           BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<UserRole> userRoles = Arrays.asList(UserRole.values());
-            model.addObject("userRoles", userRoles);
-            model.setViewName("editUser");
-            model.setStatus(HttpStatus.BAD_REQUEST);
-            return model;
+            model.addAttribute("userRoles", userRoles);
+            return "editUser";
         }
         try {
             UserDto user = userService.findById(id);
@@ -98,22 +96,22 @@ public class UserController {
             user.setEmail(userDto.getEmail());
             user.setPassword(userDto.getPassword());
             user.setUserRole(userDto.getUserRole());
-            if (user.getEmail().equals(userDto.getEmail()) | user.getUsername().equals(userDto.getUsername())) {
+            user.setId(userDto.getId());
+            if (user.getEmail().equals(userDto.getEmail())) {
                 userService.delete(userDto);
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.addOrUpdate(user);
-            model.setViewName("redirect:/users/list");
+            return "redirect:/users/list";
         } catch (UsernameAlreadyExistException | UserEmailAlreadyExistException ex) {
-            model.addObject("message", ex.getMessage());
+            model.addAttribute("message", ex.getMessage());
             List<UserRole> userRoles = Arrays.asList(UserRole.values());
-            model.addObject("userRoles", userRoles);
-            model.setViewName("editUser");
+            model.addAttribute("userRoles", userRoles);
+            return  "editUser";
         }
-        return model;
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @GetMapping(path = "/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteUser(@PathVariable("id") UUID id) {
         UserDto user = userService.findById(id);

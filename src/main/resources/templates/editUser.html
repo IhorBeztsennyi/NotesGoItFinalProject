@@ -16,23 +16,22 @@ background-repeat: no-repeat;
 font-family: 'Comic Sans MS', arial, serif;">
 
 <div class="container">
-  <form th:action="@{/users/edit/{id}" th:object="${user}" th:method="PUT">
+  <form action="#" th:action="@{{id}(id=${user.id})}" th:object="${user}" th:method="post">
     <h3 style="text-align: center; margin-top: 50px"><span th:utext="${message}"></span></h3>
 
-
     <div class="card-body" style="text-align: center">
-      <input type="text" class="form-control form-control-sm" name="username"  th:field="*{username}"
+      <input type="text" class="form-control form-control-sm" th:field="*{username}" id="username"
              th:required="require" th:autofocus="true" minlength="5" maxlength="50"
              style=" max-width: 300px; padding: 10px; margin-top: 40%; margin: 0 auto;">
     </div>
     <div class="card-body" style="text-align: center">
-      <input type="text" class="form-control form-control-sm" name="email"  th:field="*{email}"
+      <input type="text" class="form-control form-control-sm" th:field="*{email}" id="email"
              th:required="require" th:autofocus="true" minlength="5" maxlength="50"
              style=" max-width: 300px; padding: 10px; margin: 0 auto;">
     </div>
 
     <div class="pt-3" style="text-align: center">
-      <input class="form-control form-control-sm" type="password" name="password" th:field="*{password}"  th:autofocus="false"
+      <input class="form-control form-control-sm" type="password" th:field="*{password}" id="password"   th:autofocus="false"
              th:required="require"  style=" max-width: 300px; padding: 10px; margin: 0 auto " minlength="8" maxlength="100">
 
       <div class="form-check">
@@ -41,7 +40,6 @@ font-family: 'Comic Sans MS', arial, serif;">
       <div class="form-check">
         <label> <input type="radio" name="userRole" value="ROLE_ADMIN" th:field="*{userRole}"> </label> Admin
       </div>
-      <input type="hidden" th:field="*{id}" />
       <br>
       <button class="btn btn-lg btn-primary" type="submit"style="margin-top: 15px;font-size:27px; background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS" >CHANGE</button>
     </div>
