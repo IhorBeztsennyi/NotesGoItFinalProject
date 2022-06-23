@@ -38,7 +38,11 @@ public class NoteService {
     return converter.toDto(repository.findByName(name));
     }
 
-    public Page<NoteDto> viewNotes(Pageable p){
+    public NoteDto findById(UUID id){
+    return converter.toDto(repository.findById(id).get());
+    }
+
+    public Page<NoteDto> viewNotes(Pageable p, UUID userId){
         List<NoteDto> list = repository.findAll().stream()
                 .map(converter::toDto)
                 .collect(Collectors.toList());

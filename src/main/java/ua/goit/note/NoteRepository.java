@@ -12,12 +12,12 @@ import java.util.UUID;
 public interface NoteRepository extends JpaRepository<NoteDao, UUID> {
 
 
-    Optional<NoteDao> findById(UUID uuid);
+    Optional<NoteDao> findById(UUID id);
 
-    @Query("from note as n where n.name=:name")
+    @Query("SELECT n FROM note n where n.name IN (?1)")
     NoteDao findByName(String name);
 
-    @Query("from note as n where n.user_id=:userId")
+    @Query("SELECT n FROM note n where n.user.id (?1)")
     List<NoteDao> findNotesByUserId(UUID userId);
 
 
