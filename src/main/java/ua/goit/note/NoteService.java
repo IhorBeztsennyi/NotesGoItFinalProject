@@ -43,10 +43,10 @@ public class NoteService {
     }
 
     public Page<NoteDto> viewNotes(Pageable p, UUID userId){
-        List<NoteDto> list = repository.findAll().stream()
+        List<NoteDto> list = repository.findNotesByUserId(userId).stream()
                 .map(converter::toDto)
                 .collect(Collectors.toList());
-        return new PageImpl<NoteDto>(list,p, list.size());
+        return new PageImpl<>(list,p, list.size());
     }
 
 }
