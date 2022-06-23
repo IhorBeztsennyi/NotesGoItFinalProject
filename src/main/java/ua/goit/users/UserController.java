@@ -81,9 +81,9 @@ public class UserController {
         return "editUser";
     }
 
-    @PutMapping(path = "/edit/{id}")
+    @PutMapping(path = "/edit")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView editUser(@PathVariable("id") UUID id, @ModelAttribute("user") @Valid UserDto userDto,
+    public ModelAndView editUser(@ModelAttribute("user") @Valid UserDto userDto,
                                  BindingResult bindingResult, ModelAndView model) {
         if (bindingResult.hasErrors()) {
             List<UserRole> userRoles = Arrays.asList(UserRole.values());
@@ -93,7 +93,7 @@ public class UserController {
             return model;
         }
         try {
-            UserDto user = userService.findById(id);
+            UserDto user = userService.findById(userDto.getId());
             user.setUsername(userDto.getUsername());
             user.setEmail(userDto.getEmail());
             user.setPassword(userDto.getPassword());
