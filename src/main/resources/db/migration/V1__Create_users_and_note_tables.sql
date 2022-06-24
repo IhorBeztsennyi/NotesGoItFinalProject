@@ -14,7 +14,7 @@ CREATE TABLE note
     name     VARCHAR(255) NOT NULL,
     content  VARCHAR(255) NOT NULL,
     access_type VARCHAR(255) NOT NULL,
-    user_id  uuid NOT NULL,
+    user_id  UUID NOT NULL,
     primary key (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
