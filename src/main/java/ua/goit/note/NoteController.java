@@ -1,43 +1,61 @@
 package ua.goit.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ua.goit.users.UserDto;
+import ua.goit.users.UserService;
 
-import java.util.UUID;
+import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
-@RestController
+
+@Controller
+@RequestMapping(path = "/notes")
 public class NoteController {
 
     private final NoteService noteService;
+    private final UserService userService;
 
     @Autowired
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, UserService userService) {
         this.noteService = noteService;
+        this.userService = userService;
     }
 
-    public Page<NoteDto> getNotes(@PageableDefault(sort = "id", direction= Sort.Direction.DESC,size = 5) Pageable p){
-        return noteService.viewNotes(p);
+    @GetMapping(path = "/list")
+    public String getListNotes(Model model, Authentication authentication) {
+        UserDto user = userService.loadUserByUserName(authentication.getName());
+        List<NoteDto> notes = noteService.findAll(user.getId());
+        model.addAttribute("notes", notes);
+        return "listNotes";
     }
 
-    public void saveNote(NoteDto n){
-        noteService.createNote(n);
+    @GetMapping(path = "/create")
+    public String createNoteForm(Model model) {
+        List<Access> access = Arrays.asList(Access.values());
+        model.addAttribute("access", access);
+        return "createNote";
     }
 
-    public void updateNote(NoteDto note){
-        noteService.editNote(note);
+    @PostMapping(path = "/create")
+    public String createNote(@Valid NoteDto note, Authentication authentication, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Access> access = Arrays.asList(Access.values());
+            model.addAttribute("access", access);
+            return "createNote";
+        }
+        try {
+            UserDto user = userService.loadUserByUserName(authentication.getName());
+            note.setUser(user);
+            noteService.saveOrUpdate(note);
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
+        return "redirect:/notes/list";
     }
-
-    public void deleteNote(@RequestParam UUID id){
-        noteService.deleteNoteById(id);
-    }
-
-    public NoteDto findNoteByName(String name){
-        return noteService.findByName(name);
-    }
-
 }

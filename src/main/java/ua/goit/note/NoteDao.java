@@ -40,7 +40,7 @@ public class NoteDao {
         return content;
     }
 
-    public void setContent(String noteContent) {
+    public void setContent(String content) {
         this.content = content;
     }
     @Column(name="access_type")

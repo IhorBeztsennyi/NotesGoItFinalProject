@@ -2,8 +2,11 @@ package ua.goit.note;
 
 import ua.goit.users.UserDto;
 
+import java.util.UUID;
+
 public class NoteDto {
 
+    private UUID id;
     private String name;
     private String content;
     private Access accessType;
@@ -43,5 +46,13 @@ public class NoteDto {
 
     public void setUser(UserDto user) {
         this.user = user;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

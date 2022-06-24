@@ -17,7 +17,10 @@ public interface NoteRepository extends JpaRepository<NoteDao, UUID> {
     @Override
     Optional<NoteDao> findById(UUID uuid);
 
-    NoteDao findByName(String name);
+    Optional<NoteDao> findByName(String name);
+
+    @Query("SELECT n FROM NoteDao n WHERE n.user IN (?1)")
+    List<NoteDao> findAllByUserId(UUID id);
 
 
 
