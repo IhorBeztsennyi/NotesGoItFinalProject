@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.goit.note.exeptions.NoteNameIsAlreadyExistException;
 import ua.goit.users.UserDto;
 import ua.goit.users.UserService;
 
@@ -53,8 +54,9 @@ public class NoteController {
             UserDto user = userService.loadUserByUserName(authentication.getName());
             note.setUser(user);
             noteService.saveOrUpdate(note);
-        } catch (RuntimeException e) {
-            return e.getMessage();
+        } catch (NoteNameIsAlreadyExistException ex) {
+            model.addAttribute("message", ex.getMessage());
+            return "createNote";
         }
         return "redirect:/notes/list";
     }
@@ -81,13 +83,14 @@ public class NoteController {
         model.addAttribute("note", note);
         return "shareNote";
     }
+
     @GetMapping(path = "/share/note/{userId}/{noteId}")
     public String shareNote(@PathVariable("userId") UUID userId, @PathVariable("noteId") UUID noteId, Authentication authentication, Model model) {
         UserDto userReceiver = userService.findById(userId);
         UserDto userSender = userService.loadUserByUserName(authentication.getName());
         NoteDto sendersNote = noteService.findById(noteId);
         NoteDto receiversNote = new NoteDto();
-        receiversNote.setName(sendersNote.getName() + " from " +  userSender.getUsername());
+        receiversNote.setName(sendersNote.getName() + " from " + userSender.getUsername());
         receiversNote.setContent(sendersNote.getContent());
         receiversNote.setAccessType(Access.ACCESS_PRIVATE);
         receiversNote.setUser(userReceiver);

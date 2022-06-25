@@ -35,8 +35,8 @@ public class NoteService {
     public void validateNoteName(NoteDto dto) {
         noteRepository.findByName(dto.getName())
                 .ifPresent((note) -> {
-                    throw new NoteNameIsAlreadyExistException("Note with name " + note.getName() +
-                            " already exists!");
+                    throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
+                            "\" already exists!");
                 });
     }
 

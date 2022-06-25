@@ -59,11 +59,10 @@ public class UserService {
     public void validateEmail(UserDto dto) {
         userRepository.findByEmail(dto.getEmail())
                 .ifPresent((email) -> {
-                    throw new UserEmailAlreadyExistException("User with email " + email.getEmail() +
-                            " already exists!");
+                    throw new UserEmailAlreadyExistException("User with email \"" + email.getEmail() +
+                            "\" already exists!");
                 });
     }
-
 
     public UserDto findById(UUID id) {
         return userConverter.toDto(userRepository.findById(id)
