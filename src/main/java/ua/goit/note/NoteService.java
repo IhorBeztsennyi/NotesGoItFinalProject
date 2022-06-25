@@ -9,6 +9,7 @@ import ua.goit.users.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -33,11 +34,13 @@ public class NoteService {
     }
 
     public void validateNoteName(NoteDto dto) {
-        noteRepository.findByName(dto.getName())
-                .ifPresent((note) -> {
-                    throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
-                            "\" already exists!");
-                });
+        Set<NoteDao> noteSet = userRepository.findByUsername(dto.getUser().getUsername()).get().getNotes();
+        for (NoteDao note : noteSet) {
+            if (note.getName().equals(dto.getName())) {
+                throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
+                        "\" already exists!");
+            }
+        }
     }
 
     public List<NoteDto> findAll(UUID id) {
