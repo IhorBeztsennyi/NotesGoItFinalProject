@@ -51,8 +51,15 @@ public class NoteController {
         }
         try {
             UserDto user = userService.loadUserByUserName(authentication.getName());
-            note.setUser(user);
-            noteService.saveOrUpdate(note);
+            if (noteService.validateNoteName(note, user)){
+                note.setUser(user);
+                noteService.saveOrUpdate(note);
+            }else {
+                List<Access> access = Arrays.asList(Access.values());
+                model.addAttribute("access", access);
+                model.addAttribute("message", "This name is already exist!");
+                return "createNote";
+            }
         } catch (RuntimeException e) {
             return e.getMessage();
         }
