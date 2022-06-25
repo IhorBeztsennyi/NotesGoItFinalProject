@@ -77,8 +77,21 @@ public class NoteController {
     public String shareNoteForm(@PathVariable("id") UUID id, Model model) {
         NoteDto note = noteService.findById(id);
         List<UserDto> users = userService.findAll();
-        model.addAttribute("note", note);
         model.addAttribute("users", users);
+        model.addAttribute("note", note);
         return "shareNote";
+    }
+    @GetMapping(path = "/share/note/{userId}/{noteId}")
+    public String shareNote(@PathVariable("userId") UUID userId, @PathVariable("noteId") UUID noteId, Authentication authentication, Model model) {
+        UserDto userReceiver = userService.findById(userId);
+        UserDto userSender = userService.loadUserByUserName(authentication.getName());
+        NoteDto sendersNote = noteService.findById(noteId);
+        NoteDto receiversNote = new NoteDto();
+        receiversNote.setName(sendersNote.getName() + " from " +  userSender.getUsername());
+        receiversNote.setContent(sendersNote.getContent());
+        receiversNote.setAccessType(Access.ACCESS_PRIVATE);
+        receiversNote.setUser(userReceiver);
+        noteService.saveOrUpdate(receiversNote);
+        return "redirect:/notes/list";
     }
 }
