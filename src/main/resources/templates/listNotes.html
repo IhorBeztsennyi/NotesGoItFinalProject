@@ -20,7 +20,8 @@ font-family: 'Comic Sans MS', arial, serif;">
 <div style="text-align: center; margin-top: 40px;margin-bottom: 15px">
     <h1> <span th:utext="${message}"></span>
         <span th:text="${notes.size()}"></span> notes in your list</h1>
-
+    <a th:href="@{/index}" style="position: fixed; top: 5px; left: 5px;">
+        <button style="background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS" class="btn btn-lg btn-secondary" type="submit">Home</button></a>
     <a th:href="@{/logout}" style="position: fixed; top: 5px;right: 5px;">
         <button class="btn btn-lg btn-warning" type="submit">LOG OUT</button>
     </a>
