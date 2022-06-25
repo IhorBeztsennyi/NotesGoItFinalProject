@@ -10,7 +10,7 @@ CREATE TABLE users
 
 CREATE TABLE note
 (
-    id        UUID NOT NULL,
+    id        UUID,
     name     VARCHAR(255) NOT NULL,
     content  VARCHAR(255) NOT NULL,
     access_type VARCHAR(255) NOT NULL,
