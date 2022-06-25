@@ -72,4 +72,13 @@ public class NoteController {
         model.addAttribute("notes", notes);
         return "listPublicNotes";
     }
+
+    @GetMapping(path = "/share/{id}")
+    public String shareNoteForm(@PathVariable("id") UUID id, Model model) {
+        NoteDto note = noteService.findById(id);
+        List<UserDto> users = userService.findAll();
+        model.addAttribute("note", note);
+        model.addAttribute("users", users);
+        return "shareNote";
+    }
 }

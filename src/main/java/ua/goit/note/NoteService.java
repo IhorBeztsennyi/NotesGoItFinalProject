@@ -5,14 +5,10 @@ import org.springframework.stereotype.Service;
 import ua.goit.note.exeptions.NoteNameIsAlreadyExistException;
 import ua.goit.note.exeptions.NoteNotFoundException;
 import ua.goit.users.UserDao;
-import ua.goit.users.UserDto;
 import ua.goit.users.UserRepository;
-import ua.goit.users.exception.UserNotFoundException;
-import ua.goit.users.exception.UsernameAlreadyExistException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
