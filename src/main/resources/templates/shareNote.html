@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Share Page</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="//getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+</head>
+<body style="background-image:url(https://media.istockphoto.com/vectors/cute-gray-cat-waving-paw-cartoon-vector-illustration-vector-id1317495176?k=20&m=1317495176&s=612x612&w=0&h=TwAzMWgQ981YWHHVszcv62yHgBDlSnBU3aauLOE07-s=);
+background-size: 1000px auto;
+
+ background-position:  50% 1%;
+background-repeat: no-repeat;font-variant: normal | small-caps | inherit;">
+<form th:action="@{/notes/share}" method="GET">
+</form>
+<h1 style="text-align: center;Text-shadow:2px 4px 3px rgba(0,0,0,0.3);Background-color:#0E0F0E; -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; color: transparent; text-shadow: rgba(255,255,255,0.5) 0px 3px 3px; margin-top: 50px">If you wanna share your note with somebody<br>
+    tab the 'share' button</h1>
+<div style="text-align: center; margin-top: 50px;margin-bottom: 15px">
+    <a th:href="@{/logout}" style="position: fixed; top: 5px;right: 5px;">
+        <button class="btn btn-lg btn-warning" type="submit">LOG OUT</button>
+    </a>
+    <a th:href="@{/notes/list}" class="btn btn-primary">Back to list</a>
+    <br>
+
+
+    <table style="border: 3px black; background-color: #e1e1e194; width: 80%; " align="center">
+        <thead style="border: black 20px; ">
+        <tr align="center" th:border="3" style="border: black">
+            <th th:border="3" style="border: black; text-align: center">UserId</th>
+            <th th:border="3" style="border: black; text-align: center">Username</th>
+            <th th:border="3" style="border: black; text-align: center">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td align="center"><span th:text="${user.getId()}"> UserId </span></td>
+            <td align="center"><span th:text="${user.getUsername()}"> Username </span></td>
+            <td align="center"><span th:text="${user.getEmail()}"> Password </span></td>
+
+            <td align="center">
+                <a th:href="@{/notes/share/note/{userId}/{noteId}(userId=${user.getId()}, noteId=${note.getId()})}"  class="btn btn-danger">Share </a>
+            </td>
+        </tr>
+    </table>
+        <br>
+        <br>
+        <a th:href="@{/notes/list}"style="position: center;background-color:#F5B0E7;border-color: #07302c;"  class="btn btn-danger">Cancel</a>
+    </form>
+
+
+
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+    function copyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.style.position = 'fixed';
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = 0;
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function CopyLink() {
+        copyTextToClipboard(location.href);
+    }
+</script>
+</body>
+</html>

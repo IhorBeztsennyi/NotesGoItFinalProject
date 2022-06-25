@@ -55,4 +55,8 @@ public class NoteService {
                 .collect(Collectors.toList());
 
     }
+
+    public NoteDto findById(UUID id) {
+        return noteConverter.toDto(noteRepository.findById(id).get());
+    }
 }
