@@ -16,6 +16,7 @@ public class NoteConverter {
 
     public NoteDto toDto(NoteDao dao) {
         NoteDto dto = new NoteDto();
+        dto.setId(dao.getId());
         dto.setName(dao.getName());
         dto.setContent(dao.getContent());
         dto.setAccessType(dao.getAccessType());
@@ -25,6 +26,7 @@ public class NoteConverter {
 
     public NoteDao toDao(NoteDto dto) {
         NoteDao dao = new NoteDao();
+        dao.setId(dto.getId());
         dao.setName(dto.getName());
         dao.setContent(dto.getContent());
         dao.setAccessType(dto.getAccessType());

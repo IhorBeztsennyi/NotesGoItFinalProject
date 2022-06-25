@@ -15,11 +15,11 @@ background-size: 1000px auto;
  background-position:  50% 10%;
   background-repeat: no-repeat;
 font-family: 'Comic Sans MS', arial, serif;">
-<form th:action="@{/notes/list}" method="GET">
+<form th:action="@{/notes/listPublic}" method="GET">
 </form>
 <div style="text-align: center; margin-top: 40px;margin-bottom: 15px">
     <h1> <span th:utext="${message}"></span>
-        <span th:text="${notes.size()}"></span> notes in your list</h1>
+        <span th:text="${notes.size()}"></span> public notes</h1>
 
     <a th:href="@{/logout}" style="position: fixed; top: 5px;right: 5px;">
         <button class="btn btn-lg btn-warning" type="submit">LOG OUT</button>
@@ -28,7 +28,7 @@ font-family: 'Comic Sans MS', arial, serif;">
     <a th:href="@{/notes/create}" style="position: center;background-color: #5CEC5C;border-color: #07302c; margin: 10px" class="btn-lg btn-primary">Create Note</a>
     <br>
     <br>
-    <a th:href="@{/notes/listPublic}" style="position: center;background-color: #45CEA2;border-color: #07302c; margin: 10px" class="btn-lg btn-primary">All Public List</a>
+    <a th:href="@{/notes/list}" style="position: center;background-color: #45CEA2;border-color: #07302c; margin: 10px" class="btn-lg btn-primary">Your Note List</a>
 </div>
 <div class="table table-hover"
      style=" border: 15px black; border-collapse: collapse; position: center; margin-top: 45px;
@@ -41,7 +41,7 @@ font-family: 'Comic Sans MS', arial, serif;">
             <th style="border: black;  text-align: start">Name</th>
             <th style="border: black; text-align: start"> Description</th>
             <th style="border: black; text-align: start"> Access</th>
-            <th style="border: black; text-align: center"> Actions</th>
+<!--            <th style="border: black; text-align: center"> Actions</th>-->
         </tr>
         </thead>
         <tbody style="border: black">
@@ -50,11 +50,11 @@ font-family: 'Comic Sans MS', arial, serif;">
             <td><span th:text="${note.getName()}"> Name </span></td>
             <td><span th:text="${note.getContent()}"> Description </span></td>
             <td><span th:text="${note.getAccessType()}"> Access </span></td>
-            <td align="center">
-                <a th:href="@{/notes/edit/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Edit</a>
-                <a th:href="@{/notes/delete/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Delete</a>
-                <a th:href="@{/notes/share/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Share me</a>
-            </td>
+<!--            <td align="center">-->
+<!--                <a th:href="@{/notes/edit/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Edit</a>-->
+<!--                <a th:href="@{/notes/delete/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Delete</a>-->
+<!--                <a th:href="@{/notes/share/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Share me</a>-->
+<!--            </td>-->
         </tr>
     </table>
 </div>

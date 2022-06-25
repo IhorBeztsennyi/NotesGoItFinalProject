@@ -12,7 +12,7 @@ import ua.goit.users.UserService;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.UUID;
 
 @Controller
 @RequestMapping(path = "/notes")
@@ -57,5 +57,19 @@ public class NoteController {
             return e.getMessage();
         }
         return "redirect:/notes/list";
+    }
+
+    @GetMapping(path = "/delete/{id}")
+    public String deleteNote(@PathVariable("id") UUID id) {
+        NoteDto note = noteService.findById(id);
+        noteService.delete(note);
+        return "redirect:/notes/list";
+    }
+
+    @GetMapping(path = "/listPublic")
+    public String getListPublicNotes(Model model) {
+        List<NoteDto> notes = noteService.findAllPublicNotes();
+        model.addAttribute("notes", notes);
+        return "listPublicNotes";
     }
 }
