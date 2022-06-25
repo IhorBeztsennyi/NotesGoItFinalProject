@@ -1,17 +1,20 @@
 package ua.goit.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.goit.users.UserDto;
+import ua.goit.users.UserRole;
 import ua.goit.users.UserService;
 
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -57,5 +60,15 @@ public class NoteController {
             return e.getMessage();
         }
         return "redirect:/notes/list";
+    }
+
+    @GetMapping(path = "/share/{id}")
+    public String shareNoteForm(@PathVariable("id") UUID id, Model model) {
+        NoteDto note = noteService.findById(id);
+        List<UserDto> users = userService.findAll();
+        model.addAttribute("note", note);
+        model.addAttribute("users", users);
+
+        return "shareNote";
     }
 }
