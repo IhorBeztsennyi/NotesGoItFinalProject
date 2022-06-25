@@ -85,18 +85,4 @@ public class NoteController {
         return "redirect:/notes/list";
     }
 
-    @PostMapping(path = "/share")
-    public String shareNote(@Valid NoteDto note,  Authentication authentication, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/notes/list";
-        }
-        try {
-            UserDto userSender = userService.loadUserByUserName(authentication.getName());
-            note.setName(note.getName() + " from " + userSender.getUsername());
-            noteService.saveOrUpdate(note);
-        } catch (RuntimeException e) {
-            return e.getMessage();
-        }
-        return "redirect:/notes/list";
-    }
 }
