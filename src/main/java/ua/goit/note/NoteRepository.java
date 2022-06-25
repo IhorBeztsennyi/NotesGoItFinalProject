@@ -1,10 +1,7 @@
 package ua.goit.note;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,7 +19,6 @@ public interface NoteRepository extends JpaRepository<NoteDao, UUID> {
     @Query("SELECT n FROM NoteDao n WHERE n.user IN (?1)")
     List<NoteDao> findAllByUserId(UUID id);
 
-
-
-
+    @Query("SELECT n FROM NoteDao n WHERE n.accessType IN (?1)")
+    List<NoteDao> findAllPublicNotes(Access access);
 }
