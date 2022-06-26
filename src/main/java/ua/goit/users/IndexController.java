@@ -31,4 +31,9 @@ public class IndexController {
         }
         return "login";
     }
+
+    @GetMapping("/about")
+    public String getAboutPage(){
+        return "about";
+    }
 }

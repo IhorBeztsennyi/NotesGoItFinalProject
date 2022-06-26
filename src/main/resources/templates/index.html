@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="en">
+
 <head>
-    <title th:utext="${title}"></title>
+    <title>Your Notes</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
+
 <body style="background-image:url(https://media.istockphoto.com/vectors/cute-gray-cat-waving-paw-cartoon-vector-illustration-vector-id1317495176?k=20&m=1317495176&s=612x612&w=0&h=TwAzMWgQ981YWHHVszcv62yHgBDlSnBU3aauLOE07-s=);
  background-size: 1100px auto;
        background-repeat: no-repeat;font-family: 'Comic Sans MS', arial, serif;">
 <h1 style="text-align: center; margin-top: 70px"> <span th:utext="${message}"></span></h1>
 <h2 style="text-align: center; margin-top: 50px; margin-right: 50px;
-    margin-bottom: 70px; margin-left: 50px;">To create note tab the 'create' button.<br>
-    To watch the list note, tap the 'note list'.<br>
-    <a th:href="@{/logout}" class="btn-lg btn-warning" style="position: absolute; top: 5px; right: 5px;font-family: Comic Sans MS">  LOG OUT </a>
+    margin-bottom: 70px; margin-left: 50px;">To create note click the 'create' button.<br>
+    To view the notes list, click the 'note list'.<br>
+    <a th:href="@{/logout}" class="btn-lg btn-warning"
+       style="position: absolute; top: 5px; right: 5px;font-family: Comic Sans MS; background-color:blue;color:aliceblue;">
+        LOG OUT
+    </a>
 
     <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-    <a th:href="@{/users/list}" class="btn-lg btn-primary" style="position: absolute; top: 55px; right: 5px;font-family: Comic Sans MS">Users List</a>
+        <a th:href="@{/users/list}" class="btn-lg btn-primary"
+           style="position: absolute; top: 55px; right: 5px;font-family: Comic Sans MS; background-color: rgb(255, 242, 0);color:rgb(0,0,0);">Users
+            List</a>
     </div>
     <br>
 
-    <a th:href="@{/notes/create}" style="position: center;background-color: #5CEC5C;border-color: #07302c;" class="btn-lg btn-primary">Create Note</a>
+    <div>
+        <a th:href="@{/about}" class="btn-lg btn-warning"
+           style="position: absolute; top: 90%; right: 5px;font-family: Comic Sans MS; background-color:blue;color:aliceblue;">
+            ABOUT
+            THE TEAM
+        </a>
+    </div>
+    <a th:href="@{/notes/create}" style="position: center;background-color: #5CEC5C;border-color: #07302c;"
+       class="btn-lg btn-primary">Create Note</a>
 
-    <a th:href="@{/notes/list}" style="position: center;right: 5px;background-color: #45CEA2;border-color: #07302c;" class="btn-lg btn-primary">Note list</a>
+    <a th:href="@{/notes/list}" style="position: center;right: 5px;background-color: #45CEA2;border-color: #01ffe6;"
+       class="btn-lg btn-primary">Note list</a>
 </h2>
 </body>
+
 </html>
