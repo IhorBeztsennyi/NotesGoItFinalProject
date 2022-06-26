@@ -14,7 +14,5 @@ public interface UserRepository extends CrudRepository<UserDao, UUID> {
 
     Optional<UserDao> findByUsername(String email);
 
-    @Query("from users as u where u.username=:name")
-    UserDao findByName(String name);
 
 }

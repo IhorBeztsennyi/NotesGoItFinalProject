@@ -14,11 +14,7 @@ public interface NoteRepository extends JpaRepository<NoteDao, UUID> {
 
     Optional<NoteDao> findById(UUID id);
 
-    @Query("SELECT n FROM note n where n.name IN (?1)")
-    NoteDao findByName(String name);
 
-    @Query("SELECT n FROM note n where n.user.id (?1)")
-    List<NoteDao> findNotesByUserId(UUID userId);
 
 
 

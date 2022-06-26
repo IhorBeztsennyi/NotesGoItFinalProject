@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:utext="${title}">Notes List</title>
+    <title>Notes List</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -22,11 +22,12 @@ font-family: 'Comic Sans MS', arial, serif;">
     <h1> <span th:utext="${message}"></span>
         <span th:text="${notes.size()}"></span> notes in your list</h1>
 
+
     <a th:href="@{/logout}" style="position: fixed; top: 5px;right: 5px;">
         <button class="btn btn-lg btn-warning" type="submit">LOG OUT</button>
     </a>
     <br>
-    <a th:href="@{/note/createNote}" style="position: center;background-color: #5CEC5C;border-color: #07302c; margin: 10px" class="btn-lg btn-primary">Create Note</a>
+    <a th:href="@{/note/create}" style="position: center;background-color: #5CEC5C;border-color: #07302c; margin: 10px" class="btn-lg btn-primary">Create Note</a>
 </div>
 <div class="table table-hover"
      style=" border: 15px black; border-collapse: collapse; position: center; margin-top: 45px;
@@ -37,7 +38,7 @@ font-family: 'Comic Sans MS', arial, serif;">
         <tr align="center" th:border="3" style="border: black">
             <th style="border: black; text-align: start">#</th>
             <th style="border: black;  text-align: start">Name</th>
-            <th style="border: black; text-align: start"> Description</th>
+            <th style="border: black; text-align: start"> Content</th>
             <th style="border: black; text-align: start"> Access</th>
             <th style="border: black; text-align: center"> Actions</th>
         </tr>
@@ -46,12 +47,12 @@ font-family: 'Comic Sans MS', arial, serif;">
         <tr th:each="note : ${notes}" >
             <td><span th:text="${noteStat.count}"> # </span></td>
             <td><span th:text="${note.getName()}"> Name </span></td>
-            <td><span th:text="${note.getDescription()}"> Description </span></td>
+            <td><span th:text="${note.getContent()}"> Description </span></td>
             <td><span th:text="${note.getAccess()}"> Access </span></td>
             <td align="center">
                 <a th:href="@{/note/editNote(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Edit</a>
                 <a th:href="@{/note/deleteNote(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Delete</a>
-                <a th:href="@{/note/share(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Share me</a>
+                <a th:href="@{/note/share(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Share note</a>
             </td>
         </tr>
     </table>

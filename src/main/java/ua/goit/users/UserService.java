@@ -75,7 +75,5 @@ public class UserService {
                 new UserNotFoundException(String.format("User with username %s not exists", username))));
     }
 
-    public UserDto findByName(String userName) {
-        return userConverter.toDto(userRepository.findByName(userName));
-    }
+
 }

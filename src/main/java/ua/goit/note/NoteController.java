@@ -12,6 +12,7 @@ import ua.goit.users.UserDto;
 import ua.goit.users.UserService;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -27,22 +28,22 @@ public class NoteController {
         this.userService = userService;
     }
     @GetMapping("/list")
-    public String getNotes(@PageableDefault(sort = "id", direction= Sort.Direction.DESC,size = 5) Pageable page,
-                                  Principal currentlyLoggedUser, Model model){
-        String username = currentlyLoggedUser.getName();
-        UserDto user = userService.findByName(username);
-        Page<NoteDto> notes = noteService.viewNotes(page, user.getId());
-        model.addAttribute("pageNumber", page.getPageNumber());
-        model.addAttribute("pageSize", page.getPageSize());
+    public String getNotes(Model model){
+        List<NoteDto> notes = noteService.viewNotes();
         model.addAttribute("notes", notes);
         return "list_notes";
     }
+
+    @GetMapping("/create")
+    public String createNoteForm(Model model){
+
+        model.addAttribute("note", new NoteDto());
+        return "create_note";
+    }
+
     @PostMapping("/createNote")
-    public String saveNote(NoteDto note, Principal currentlyLoggedUser){
+    public String saveNote(NoteDto note){
         try {
-            String userName = currentlyLoggedUser.getName();
-            UserDto user = userService.findByName(userName);
-            note.setUser(user);
             noteService.createNote(note);
         }catch (RuntimeException e){
             return e.getMessage();
@@ -63,11 +64,8 @@ public class NoteController {
     }
 
     @PutMapping("/updateNote")
-    public String updateNote(@ModelAttribute NoteDto note, Principal currentlyLoggedUser){
+    public String updateNote(@ModelAttribute NoteDto note){
         try {
-            String userName = currentlyLoggedUser.getName();
-            UserDto user = userService.findByName(userName);
-            note.setUser(user);
             noteService.editNote(note);
         }catch (RuntimeException e){
             return e.getMessage();
@@ -84,8 +82,5 @@ public class NoteController {
         return "redirect:/note/list";
     }
 
-    public NoteDto findNoteByName(String name){
-        return noteService.findByName(name);
-    }
 
 }

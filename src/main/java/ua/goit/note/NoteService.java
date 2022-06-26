@@ -33,20 +33,15 @@ public class NoteService {
     repository.deleteById(id);
     }
 
-    public NoteDto findByName(String name){
-
-    return converter.toDto(repository.findByName(name));
-    }
 
     public NoteDto findById(UUID id){
     return converter.toDto(repository.findById(id).get());
     }
 
-    public Page<NoteDto> viewNotes(Pageable p, UUID userId){
-        List<NoteDto> list = repository.findNotesByUserId(userId).stream()
+    public List<NoteDto> viewNotes(){
+        return repository.findAll().stream()
                 .map(converter::toDto)
                 .collect(Collectors.toList());
-        return new PageImpl<>(list,p, list.size());
     }
 
 }

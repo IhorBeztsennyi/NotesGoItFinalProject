@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:utext="${title}"></title>
+    <title>Save a note</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -26,24 +26,25 @@
 
         </a>
         <div class="card-body">
+
             <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter notes name"
                    style="width: 700px; height: 30px;  padding: 5px; border: solid 1px black; border-collapse: collapse"
                    minlength="5" maxlength="100">
 
             <br>
             <label>
-                <textarea type="text" class="form-control form-control-sm" name="description"
+                <input type="text" class="form-control form-control-sm" name="content"
                           placeholder="Enter note text"
                           style="overflow:scroll; width: 700px; height: 200px;  padding: 5px; border: solid 1px black;
-            text-align: justify-all; word-wrap: break-word; " maxlength="10000"> </textarea>
+            text-align: justify-all; word-wrap: break-word; " maxlength="10000"> />
             </label>
         </div>
 
         <div class="form-check">
-            <label> <input type="radio" name="access" value="PRIVATE"> </label> Private
+            <label> <input type="radio" name="accesstype" value="private"> </label> Private
         </div>
         <div class="form-check">
-            <label> <input type="radio" name="access" value="PUBLIC"> </label> Public
+            <label> <input type="radio" name="accesstype" value="public"> </label> Public
         </div>
         <button class="btn btn-primary" type="submit" style="position: center;background-color:#5EEB82 ;border-color: #07302c;">Create</button>
         <br>
