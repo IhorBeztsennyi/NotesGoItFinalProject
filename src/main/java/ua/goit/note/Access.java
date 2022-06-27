@@ -2,8 +2,8 @@ package ua.goit.note;
 
 public enum Access {
 
-    ACCESS_PUBLIC("public"),
-    ACCESS_PRIVATE("private");
+    ACCESS_PUBLIC("Public"),
+    ACCESS_PRIVATE("Private");
 
     private String access;
 

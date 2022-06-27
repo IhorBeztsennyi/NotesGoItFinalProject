@@ -42,6 +42,7 @@ font-family: 'Comic Sans MS', arial, serif;">
             <th style="border: black;  text-align: start">Name</th>
             <th style="border: black; text-align: start"> Description</th>
             <th style="border: black; text-align: start"> Access</th>
+            <th style="border: black; text-align: start"> User</th>
 <!--            <th style="border: black; text-align: center"> Actions</th>-->
         </tr>
         </thead>
@@ -50,7 +51,8 @@ font-family: 'Comic Sans MS', arial, serif;">
             <td><span th:text="${noteStat.count}"> # </span></td>
             <td><span th:text="${note.getName()}"> Name </span></td>
             <td><span th:text="${note.getContent()}"> Description </span></td>
-            <td><span th:text="${note.getAccessType()}"> Access </span></td>
+            <td><span th:text="${note.getAccessType().getAccess()}"> Access </span></td>
+            <td><span th:text="${note.getUser().getUsername()}"> User </span></td>
 <!--            <td align="center">-->
 <!--                <a th:href="@{/notes/edit/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Edit</a>-->
 <!--                <a th:href="@{/notes/delete/{id}(id=${note.getId()})}"style="position: center;background-color:#F5B0E7;border-color: #07302c; " class="btn btn-danger">Delete</a>-->
