@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.goit.note.exeptions.NoteNameIsAlreadyExistException;
 import ua.goit.note.exeptions.NoteNotFoundException;
 import ua.goit.users.UserDao;
-import ua.goit.users.UserDto;
 import ua.goit.users.UserRepository;
-import ua.goit.users.exception.UsernameAlreadyExistException;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +28,7 @@ public class NoteService {
         this.noteConverter = noteConverter;
     }
 
-    public void saveOrUpdate(NoteDto note) {
+    public void save(NoteDto note) {
         validateNoteName(note);
         noteRepository.save(noteConverter.toDao(note));
     }
@@ -46,8 +44,20 @@ public class NoteService {
     }
 
     public void update(NoteDto note) {
-//        validateNoteName(note);
+        validateNoteNameForEdit(note);
         noteRepository.save(noteConverter.toDao(note));
+    }
+
+    public void validateNoteNameForEdit(NoteDto editedNote) {
+        Set<NoteDao> noteSet = userRepository.findByUsername(editedNote.getUser().getUsername()).get().getNotes();
+        for (NoteDao note : noteSet) {
+            if (note.getName().equals(editedNote.getName())) {
+                if (!note.getId().equals(editedNote.getId())) {
+                    throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
+                            "\" already exists!");
+                }
+            }
+        }
     }
 
 
