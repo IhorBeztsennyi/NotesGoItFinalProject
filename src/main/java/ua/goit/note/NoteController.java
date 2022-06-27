@@ -51,12 +51,41 @@ public class NoteController {
         try {
             UserDto user = userService.loadUserByUserName(authentication.getName());
             note.setUser(user);
-            noteService.saveOrUpdate(note);
+            noteService.save(note);
         } catch (NoteNameIsAlreadyExistException ex) {
             model.addAttribute("message", ex.getMessage());
             return "createNote";
         }
         return "redirect:/notes/list";
+    }
+
+    @GetMapping(path = "/edit/{id}")
+    public String editNoteForm(@PathVariable("id") UUID id, Model model) {
+        NoteDto note = noteService.findById(id);
+        model.addAttribute("note", note);
+        List<Access> access = Arrays.asList(Access.values());
+        model.addAttribute("access", access);
+        return "editNotes";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editNote(@PathVariable("id") UUID id, @ModelAttribute("note") NoteDto noteDto,
+                           BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "editNotes";
+        }
+        try {
+            NoteDto note = noteService.findById(id);
+            note.setName(noteDto.getName());
+            note.setContent(noteDto.getContent());
+            note.setAccessType(noteDto.getAccessType());
+            noteService.update(note);
+            return "redirect:/notes/list";
+        } catch (NoteNameIsAlreadyExistException ex) {
+            model.addAttribute("message", ex.getMessage());
+            return "editNotes";
+        }
+
     }
 
     @GetMapping(path = "/delete/{id}")
@@ -92,7 +121,7 @@ public class NoteController {
         receiversNote.setContent(sendersNote.getContent());
         receiversNote.setAccessType(Access.ACCESS_PRIVATE);
         receiversNote.setUser(userReceiver);
-        noteService.saveOrUpdate(receiversNote);
+        noteService.save(receiversNote);
         return "redirect:/notes/list";
     }
 
@@ -115,6 +144,4 @@ public class NoteController {
         }
         return "findNote";
     }
-
-
 }

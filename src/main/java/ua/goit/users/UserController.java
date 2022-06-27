@@ -2,14 +2,12 @@ package ua.goit.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ua.goit.users.exception.UserEmailAlreadyExistException;
 import ua.goit.users.exception.UsernameAlreadyExistException;
 
@@ -107,7 +105,7 @@ public class UserController {
             model.addAttribute("message", ex.getMessage());
             List<UserRole> userRoles = Arrays.asList(UserRole.values());
             model.addAttribute("userRoles", userRoles);
-            return  "editUser";
+            return "editUser";
         }
     }
 

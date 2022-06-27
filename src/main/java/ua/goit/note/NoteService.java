@@ -28,7 +28,7 @@ public class NoteService {
         this.noteConverter = noteConverter;
     }
 
-    public void saveOrUpdate(NoteDto note) {
+    public void save(NoteDto note) {
         validateNoteName(note);
         noteRepository.save(noteConverter.toDao(note));
     }
@@ -42,6 +42,24 @@ public class NoteService {
             }
         }
     }
+
+    public void update(NoteDto note) {
+        validateNoteNameForEdit(note);
+        noteRepository.save(noteConverter.toDao(note));
+    }
+
+    public void validateNoteNameForEdit(NoteDto editedNote) {
+        Set<NoteDao> noteSet = userRepository.findByUsername(editedNote.getUser().getUsername()).get().getNotes();
+        for (NoteDao note : noteSet) {
+            if (note.getName().equals(editedNote.getName())) {
+                if (!note.getId().equals(editedNote.getId())) {
+                    throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
+                            "\" already exists!");
+                }
+            }
+        }
+    }
+
 
     public List<NoteDto> findAll(UUID id) {
         Optional<UserDao> user = userRepository.findById(id);
