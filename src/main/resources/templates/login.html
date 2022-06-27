@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:font-family="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:utext="${title}"></title>
+    <title>THE NOTES</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -43,6 +43,13 @@ font-family: 'Comic Sans MS', arial, serif;">
                 th:text="${error} ? 'Wrong login or password. Please, try again.' : ''"></td>
         </h5>
     </form>
+</div>
+<div>
+    <a th:href="@{/about}" class="btn-lg btn-warning"
+       style="position: absolute; top: 90%; right: 5px;font-family: Comic Sans MS; background-color:blue;color:aliceblue;">
+        ABOUT
+        THE TEAM
+    </a>
 </div>
 </body>
 </html>
