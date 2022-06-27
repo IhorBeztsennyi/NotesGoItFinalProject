@@ -155,4 +155,26 @@ public class NoteController {
         noteService.saveOrUpdate(receiversNote);
         return "redirect:/notes/list";
     }
+
+    @GetMapping(path = "/find")
+    public String findNoteForm(Model model) {
+        return "findNoteForm";
+    }
+
+    @RequestMapping(path = "/find/name")
+    public String getVendor(@RequestParam(value = "name", required = false) String name, Model model, Authentication authentication) {
+        try {
+            UserDto user = userService.loadUserByUserName(authentication.getName());
+            NoteDto note = noteService.findByName(name, user.getUsername());
+            Set<NoteDto> notes = new HashSet<>();
+            notes.add(note);
+            model.addAttribute("notes", notes);
+        } catch (NoteNameIsAlreadyExistException ex) {
+            model.addAttribute("message", ex.getMessage());
+            return "findNoteForm";
+        }
+        return "findNote";
+    }
+
+
 }
