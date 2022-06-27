@@ -1,19 +1,22 @@
 package ua.goit.note;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.goit.note.exeptions.NoteNameIsAlreadyExistException;
 import ua.goit.users.UserDto;
+import ua.goit.users.UserRole;
 import ua.goit.users.UserService;
+import ua.goit.users.exception.UserEmailAlreadyExistException;
+import ua.goit.users.exception.UsernameAlreadyExistException;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping(path = "/notes")
@@ -58,6 +61,61 @@ public class NoteController {
             model.addAttribute("message", ex.getMessage());
             return "createNote";
         }
+        return "redirect:/notes/list";
+    }
+
+    @GetMapping(path = "/edit/{id}")
+    public String editNoteForm(@PathVariable("id") UUID id, Model model) {
+        NoteDto note = noteService.findById(id);
+        model.addAttribute("note", note);
+        List<Access> access = Arrays.asList(Access.values());
+        model.addAttribute("access", access);
+        return "editNotes";
+    }
+
+//    @PostMapping(path = "/edit/{id}")
+//    public String editNote(@PathVariable("id") UUID id, @Valid NoteDto noteDto, Authentication authentication,
+//                           BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            List<Access> access = Arrays.asList(Access.values());
+//            model.addAttribute("access", access);
+//            return "editNotes";
+//        }
+//        try {
+//            NoteDto note = noteService.findById(id);
+//            UserDto user = userService.loadUserByUserName(authentication.getName());
+//            note.setName(noteDto.getName());
+//            note.setContent(noteDto.getContent());
+//            note.setAccessType(noteDto.getAccessType());
+//            note.setUser(user);
+//            note.setId(noteDto.getId());
+//            if (note.getName().equals(noteDto.getName())) {
+//                noteService.delete(noteDto);
+//            }
+//            noteService.update(note);
+//            return "redirect:/notes/list";
+//        } catch (NoteNameIsAlreadyExistException ex) {
+//            model.addAttribute("message", ex.getMessage());
+//            List<Access> access = Arrays.asList(Access.values());
+//            model.addAttribute("access", access);
+//            return "editNotes";
+//        }
+//    }
+
+//    @GetMapping("/edit/{id}")
+//    public String editNoteForm(@PathVariable("id") UUID id, Map<String, Object> model) {
+//        NoteDto noteDto = noteService.findById(id);
+//        model.put("note", noteDto);
+//        return "editNotes";
+//    }
+
+    @PostMapping("/edit/{id}")
+    public String editNote(@PathVariable("id") UUID id, @ModelAttribute("note") NoteDto noteDto) {
+        NoteDto note = noteService.findById(id);
+        note.setName(noteDto.getName());
+        note.setContent(noteDto.getContent());
+        note.setAccessType(noteDto.getAccessType());
+        noteService.update(note);
         return "redirect:/notes/list";
     }
 
