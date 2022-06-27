@@ -6,9 +6,8 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
-<body style="padding-left: 15px;padding-right: 20px; margin-top: 50px; background-image:url(https://media.istockphoto.com/vectors/cute-gray-cat-waving-paw-cartoon-vector-illustration-vector-id1317495176?k=20&m=1317495176&s=612x612&w=0&h=TwAzMWgQ981YWHHVszcv62yHgBDlSnBU3aauLOE07-s=);
+<body style="padding-left: 15px;padding-right: 20px; margin-top: 30px; background-image:url(https://media.istockphoto.com/vectors/cute-gray-cat-waving-paw-cartoon-vector-illustration-vector-id1317495176?k=20&m=1317495176&s=612x612&w=0&h=TwAzMWgQ981YWHHVszcv62yHgBDlSnBU3aauLOE07-s=);
 background-size: 1000px auto;
 
  background-position:  70% 1%;
@@ -17,7 +16,7 @@ font-family: 'Comic Sans MS', arial, serif;">
 
 <div class="container">
     <form th:action="@{/users/create}" method="POST">
-        <h3 style="text-align: center; margin-top: 50px"><span th:utext="${message}"></span></h3>
+        <h3 style="text-align: center; margin-top: 10px"><span th:utext="${message}"></span></h3>
 
         <div class="card-body" style="text-align: center">
             <input type="text" class="form-control form-control-sm" name="username"  placeholder="Enter your username"
@@ -42,7 +41,7 @@ font-family: 'Comic Sans MS', arial, serif;">
             </div>
 
             <br>
-            <button class="btn btn-lg btn-primary" type="submit"style="margin-top: 15px;font-size:27px; background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS" >CREATE</button>
+            <button class="btn btn-lg btn-primary" type="submit"style="margin-top: 10px;font-size:27px; background-color: #5CEC5C;border-color: #07302c;font-family: Comic Sans MS" >CREATE</button>
         </div>
     </form>
 </div>
