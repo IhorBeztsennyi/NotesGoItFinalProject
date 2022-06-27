@@ -22,6 +22,8 @@ public class SecurityConfiguration  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll()
                 .antMatchers("/users/registration").permitAll()
+                .antMatchers("/about").permitAll()
+                .antMatchers("/images/team.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
