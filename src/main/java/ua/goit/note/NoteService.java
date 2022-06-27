@@ -65,4 +65,15 @@ public class NoteService {
         return noteConverter.toDto(noteRepository.findById(id)
                 .orElseThrow(() -> new NoteNotFoundException("Note does not exist")));
     }
+
+    public NoteDto findByName(String noteName, String username) {
+        Set<NoteDao> noteSet = userRepository.findByUsername(username).get().getNotes();
+        for (NoteDao note : noteSet) {
+            if (note.getName().equals(noteName.trim())) {
+                return noteConverter.toDto(note);
+            }
+        }
+        throw new NoteNameIsAlreadyExistException(" . . . . . Note with name \"" + noteName +
+                "\" doesn't exists!");
+    }
 }
