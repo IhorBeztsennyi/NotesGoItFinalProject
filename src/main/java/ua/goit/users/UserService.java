@@ -51,8 +51,8 @@ public class UserService {
     public void validateUsername(UserDto dto) {
         userRepository.findByUsername(dto.getUsername())
                 .ifPresent((username) -> {
-                    throw new UsernameAlreadyExistException("User with username " + username.getUsername() +
-                            " already exists!");
+                    throw new UsernameAlreadyExistException("User with username \"" + username.getUsername() +
+                            "\" already exists!");
                 });
     }
 
