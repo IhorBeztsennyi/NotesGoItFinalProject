@@ -116,11 +116,12 @@ public class NoteController {
         UserDto userReceiver = userService.findById(userId);
         UserDto userSender = userService.loadUserByUserName(authentication.getName());
         NoteDto sendersNote = noteService.findById(noteId);
-        NoteDto receiversNote = new NoteDto();
-        receiversNote.setName(sendersNote.getName() + " from " + userSender.getUsername());
-        receiversNote.setContent(sendersNote.getContent());
-        receiversNote.setAccessType(Access.ACCESS_PRIVATE);
-        receiversNote.setUser(userReceiver);
+        NoteDto receiversNote = new NoteDto.Builder()
+                .withName(sendersNote.getName() + " from " + userSender.getUsername())
+                .withContent(sendersNote.getContent())
+                .withAccessType(Access.ACCESS_PRIVATE)
+                .withUser(userReceiver)
+                .build();
         noteService.saveOrUpdate(receiversNote);
         return "redirect:/notes/list";
     }

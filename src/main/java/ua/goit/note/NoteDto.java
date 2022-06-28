@@ -55,4 +55,42 @@ public class NoteDto {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public static class Builder {
+
+        private NoteDto newNoteDto;
+
+        public Builder() {
+            newNoteDto = new NoteDto();
+        }
+
+        public Builder withId(UUID id) {
+            newNoteDto.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            newNoteDto.name = name;
+            return this;
+        }
+
+        public Builder withContent(String content) {
+            newNoteDto.content = content;
+            return this;
+        }
+
+        public Builder withAccessType(Access accessType) {
+            newNoteDto.accessType = accessType;
+            return this;
+        }
+
+        public Builder withUser(UserDto user) {
+            newNoteDto.user = user;
+            return this;
+        }
+
+        public NoteDto build() {
+            return newNoteDto;
+        }
+    }
 }
