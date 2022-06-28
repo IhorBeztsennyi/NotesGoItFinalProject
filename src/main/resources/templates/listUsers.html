@@ -41,7 +41,7 @@ background-size: 1000px auto;
     <tr th:each="users : ${users}">
         <td align="center"><span th:text="${users.getUsername()}"> Username </span></td>
         <td align="center"><span th:text="${users.getEmail()}"> Password </span></td>
-        <td align="center"><span th:text="${users.getUserRole()}"> Role </span></td>
+        <td align="center"><span th:text="${users.getUserRole().getRole()}"> Role </span></td>
         <td align="center">
             <a th:href="@{/users/edit/{id}(id=${users.getId()})}"  class="btn btn-warning">Edit </a>
             <a th:href="@{/users/delete/{id}(id=${users.getId()})}"  class="btn btn-danger">Delete </a>

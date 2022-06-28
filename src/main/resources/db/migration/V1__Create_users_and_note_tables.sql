@@ -11,8 +11,8 @@ CREATE TABLE users
 CREATE TABLE note
 (
     id        UUID,
-    name     VARCHAR(255) NOT NULL,
-    content  VARCHAR(255) NOT NULL,
+    name     VARCHAR(100) NOT NULL,
+    content  VARCHAR(10000) NOT NULL,
     access_type VARCHAR(255) NOT NULL,
     user_id  UUID NOT NULL,
     primary key (id),
