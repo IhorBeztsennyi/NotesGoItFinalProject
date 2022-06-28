@@ -33,6 +33,27 @@ public class NoteService {
         noteRepository.save(noteConverter.toDao(note));
     }
 
+
+    public void saveOrUpdate(NoteDto noteInput){
+        Set<NoteDao> noteSet = userRepository.findByUsername(noteInput.getUser().getUsername()).get().getNotes();
+        NoteDto noteResult = new NoteDto();
+        if (noteSet.isEmpty()){
+            save(noteInput);
+        }
+        for (NoteDao note : noteSet) {
+            if (note.getName().equals(noteInput.getName())) {
+                noteResult.setId(note.getId());
+                noteResult.setName(note.getName());
+                noteResult.setContent(noteInput.getContent());
+                noteResult.setAccessType(note.getAccessType());
+                noteResult.setUser(noteInput.getUser());
+                update(noteResult);
+            } else {
+                save(noteInput);
+            }
+        }
+    };
+
     public void validateNoteName(NoteDto dto) {
         Set<NoteDao> noteSet = userRepository.findByUsername(dto.getUser().getUsername()).get().getNotes();
         for (NoteDao note : noteSet) {

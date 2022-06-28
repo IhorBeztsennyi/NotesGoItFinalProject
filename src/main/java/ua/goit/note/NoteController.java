@@ -121,7 +121,7 @@ public class NoteController {
         receiversNote.setContent(sendersNote.getContent());
         receiversNote.setAccessType(Access.ACCESS_PRIVATE);
         receiversNote.setUser(userReceiver);
-        noteService.save(receiversNote);
+        noteService.saveOrUpdate(receiversNote);
         return "redirect:/notes/list";
     }
 
