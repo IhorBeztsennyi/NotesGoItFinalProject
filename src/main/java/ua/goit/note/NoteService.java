@@ -41,16 +41,17 @@ public class NoteService {
         if (noteSet.isEmpty()) {
             save(noteInput);
             flag = false;
-        }
-        for (NoteDao note : noteSet) {
-            if (note.getName().equals(noteInput.getName())) {
-                noteResult.setId(note.getId());
-                noteResult.setName(note.getName());
-                noteResult.setContent(noteInput.getContent());
-                noteResult.setAccessType(note.getAccessType());
-                noteResult.setUser(noteConverter.toDto(note).getUser());
-                update(noteResult);
-                flag = false;
+        } else {
+            for (NoteDao note : noteSet) {
+                if (note.getName().equals(noteInput.getName())) {
+                    noteResult.setId(note.getId());
+                    noteResult.setName(note.getName());
+                    noteResult.setContent(noteInput.getContent());
+                    noteResult.setAccessType(note.getAccessType());
+                    noteResult.setUser(noteInput.getUser());
+                    update(noteResult);
+                    flag = false;
+                }
             }
         }
         if (flag) {
