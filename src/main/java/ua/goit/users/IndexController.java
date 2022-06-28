@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/")
 public class IndexController {
 
+    @GetMapping
+    public String getDefault() {
+        return "index";
+    }
+
     @GetMapping(path = "/index")
     public String getIndexPage() {
         return "index";
