@@ -34,12 +34,13 @@ public class NoteService {
     }
 
 
-    public void saveOrUpdate(NoteDto noteInput){
+    public void saveOrUpdate(NoteDto noteInput) {
         boolean flag = true;
         Set<NoteDao> noteSet = userRepository.findByUsername(noteInput.getUser().getUsername()).get().getNotes();
         NoteDto noteResult = new NoteDto();
-        if (noteSet.isEmpty()){
+        if (noteSet.isEmpty()) {
             save(noteInput);
+            flag = false;
         }
         for (NoteDao note : noteSet) {
             if (note.getName().equals(noteInput.getName())) {
@@ -47,16 +48,15 @@ public class NoteService {
                 noteResult.setName(note.getName());
                 noteResult.setContent(noteInput.getContent());
                 noteResult.setAccessType(note.getAccessType());
-                noteResult.setUser(noteInput.getUser());
+                noteResult.setUser(noteConverter.toDto(note).getUser());
                 update(noteResult);
                 flag = false;
-            } else{
-                if (flag){
-                    save(noteInput);
-                }
             }
         }
-    };
+        if (flag) {
+            save(noteInput);
+        }
+    }
 
     public void validateNoteName(NoteDto dto) {
         Set<NoteDao> noteSet = userRepository.findByUsername(dto.getUser().getUsername()).get().getNotes();
@@ -78,7 +78,7 @@ public class NoteService {
         for (NoteDao note : noteSet) {
             if (note.getName().equals(editedNote.getName())) {
                 if (!note.getId().equals(editedNote.getId())) {
-                    throw new NoteNameIsAlreadyExistException("Note with name \"" + note.getName() +
+                    throw new NoteNameIsAlreadyExistException("Note with name you want to update \"" + note.getName() +
                             "\" already exists!");
                 }
             }
