@@ -35,6 +35,7 @@ public class NoteService {
 
 
     public void saveOrUpdate(NoteDto noteInput){
+        boolean flag = true;
         Set<NoteDao> noteSet = userRepository.findByUsername(noteInput.getUser().getUsername()).get().getNotes();
         NoteDto noteResult = new NoteDto();
         if (noteSet.isEmpty()){
@@ -48,8 +49,11 @@ public class NoteService {
                 noteResult.setAccessType(note.getAccessType());
                 noteResult.setUser(noteInput.getUser());
                 update(noteResult);
-            } else {
-                save(noteInput);
+                flag = false;
+            } else{
+                if (flag){
+                    save(noteInput);
+                }
             }
         }
     };
