@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
-public class NotesFinalProjectApplication {
+public class NotesFinalProjectApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
         SpringApplication.run(NotesFinalProjectApplication.class, args);
