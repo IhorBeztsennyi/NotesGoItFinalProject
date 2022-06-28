@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'war'
 }
 
 
@@ -27,6 +28,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    compileOnly 'com.github.jsimone:webapp-runner:9.0.27.1'
 }
 
 tasks.named('test') {
@@ -34,7 +36,25 @@ tasks.named('test') {
 }
 
 flyway {
-    url = 'jdbc:h2:mem:testdb'
-    user = 'sa'
-    password = 'password'
+    url = '${spring.datasource.url}'
+    user = '${spring.datasource.username}'
+    password = '${spring.datasource.password}'
+}
+
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compileClasspath) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
+
+war {
+    enabled=true
 }
