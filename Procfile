@@ -1,1 +1,1 @@
-web: java -jar build/server/webapp-runner-*.jar --proxy-base-url https://notes-final-developer-project.herokuapp.com/ build/libs/*.war
+web: java $JAVA_OPTS -jar build/server/webapp-runner-*.jar --port $PORT --proxy-base-url https://notes-final-developer-project.herokuapp.com/ build/libs/*.war
