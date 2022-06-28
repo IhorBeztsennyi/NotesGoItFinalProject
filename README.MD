@@ -17,10 +17,10 @@ Final project of group No.1 on creating the Notes Spreeng Boot application.
 - Spring Security implementation;
 - Create new accaunt with Google Captcha;
 - View all public user's notes;
-- CRUD operations on notes;
+- CRUD operations with notes;
 - Notes sharing with other users;
 - About us page;
-- Available for admin hidden CRUD operations on users.
+- Available for admin hidden CRUD operations with users.
 
 
 ## Environment Variables
