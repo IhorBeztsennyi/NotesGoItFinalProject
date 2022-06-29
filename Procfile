@@ -1,1 +1,1 @@
-web: java -jar build/server/webapp-runner-*.jar --port ${PORT} --proxy-base-url https://notes-final-goit-project.herokuapp.com/ build/libs/*.war
+web: java -jar build/server/webapp-runner-*.jar --port ${PORT} --proxy-base-url https://final-school-project-dev4.herokuapp.com/ build/libs/*.war
