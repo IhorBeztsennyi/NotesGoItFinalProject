@@ -15,7 +15,7 @@ Final project of group No.1 on creating the Notes Spreeng Boot application.
 ## Features
 
 - Spring Security implementation;
-- Create new accaunt with Google Captcha;
+- Create new account with Google Captcha;
 - View all public user's notes;
 - CRUD operations with notes;
 - Notes sharing with other users;
