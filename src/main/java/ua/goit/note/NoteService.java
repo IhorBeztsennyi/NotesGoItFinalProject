@@ -37,18 +37,19 @@ public class NoteService {
     public void saveOrUpdate(NoteDto noteInput) {
         boolean flag = true;
         Set<NoteDao> noteSet = userRepository.findByUsername(noteInput.getUser().getUsername()).get().getNotes();
-        NoteDto noteResult = new NoteDto();
         if (noteSet.isEmpty()) {
             save(noteInput);
             flag = false;
         } else {
             for (NoteDao note : noteSet) {
                 if (note.getName().equals(noteInput.getName())) {
-                    noteResult.setId(note.getId());
-                    noteResult.setName(note.getName());
-                    noteResult.setContent(noteInput.getContent());
-                    noteResult.setAccessType(note.getAccessType());
-                    noteResult.setUser(noteInput.getUser());
+                    NoteDto noteResult = new NoteDto.NoteBuilder()
+                            .withId(note.getId())
+                            .withName(note.getName())
+                            .withContent(noteInput.getContent())
+                            .withAccessType(note.getAccessType())
+                            .withUser(noteInput.getUser())
+                            .build();
                     update(noteResult);
                     flag = false;
                 }
