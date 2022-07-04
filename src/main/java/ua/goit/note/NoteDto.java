@@ -56,35 +56,35 @@ public class NoteDto {
         this.id = id;
     }
 
-    public static class Builder {
+    public static class NoteBuilder {
 
         private NoteDto newNoteDto;
 
-        public Builder() {
+        public NoteBuilder() {
             newNoteDto = new NoteDto();
         }
 
-        public Builder withId(UUID id) {
+        public NoteBuilder withId(UUID id) {
             newNoteDto.id = id;
             return this;
         }
 
-        public Builder withName(String name) {
+        public NoteBuilder withName(String name) {
             newNoteDto.name = name;
             return this;
         }
 
-        public Builder withContent(String content) {
+        public NoteBuilder withContent(String content) {
             newNoteDto.content = content;
             return this;
         }
 
-        public Builder withAccessType(Access accessType) {
+        public NoteBuilder withAccessType(Access accessType) {
             newNoteDto.accessType = accessType;
             return this;
         }
 
-        public Builder withUser(UserDto user) {
+        public NoteBuilder withUser(UserDto user) {
             newNoteDto.user = user;
             return this;
         }

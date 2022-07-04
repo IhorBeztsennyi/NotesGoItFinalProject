@@ -116,7 +116,7 @@ public class NoteController {
         UserDto userReceiver = userService.findById(userId);
         UserDto userSender = userService.loadUserByUserName(authentication.getName());
         NoteDto sendersNote = noteService.findById(noteId);
-        NoteDto receiversNote = new NoteDto.Builder()
+        NoteDto receiversNote = new NoteDto.NoteBuilder()
                 .withName(sendersNote.getName() + " from " + userSender.getUsername())
                 .withContent(sendersNote.getContent())
                 .withAccessType(Access.ACCESS_PRIVATE)

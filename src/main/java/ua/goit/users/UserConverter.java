@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 public class UserConverter {
 
     public UserDto toDto(UserDao dao) {
-        UserDto dto = new UserDto();
-        dto.setId(dao.getId());
-        dto.setUsername(dao.getUsername());
-        dto.setEmail(dao.getEmail());
-        dto.setPassword(dao.getPassword());
-        dto.setUserRole(dao.getUserRole());
-        return dto;
+        return new UserDto.UserBuilder()
+                .withId(dao.getId())
+                .withUsername(dao.getUsername())
+                .withEmail(dao.getEmail())
+                .withPassword(dao.getPassword())
+                .withUserRole(dao.getUserRole())
+                .build();
     }
 
     public UserDao toDao(UserDto dto) {

@@ -70,4 +70,47 @@ public class UserDto {
     public void setNotes(Set<NoteDao> notes) {
         this.notes = notes;
     }
+
+    public static class UserBuilder{
+
+        private UserDto newUserDto;
+
+        public UserBuilder() {
+            newUserDto = new UserDto();
+        }
+
+        public UserBuilder withId(UUID id){
+            newUserDto.id = id;
+            return this;
+        }
+
+        public UserBuilder withUsername(String username){
+            newUserDto.username = username;
+            return this;
+        }
+
+        public UserBuilder withEmail(String email){
+            newUserDto.email = email;
+            return this;
+        }
+
+        public UserBuilder withPassword(String password){
+            newUserDto.password = password;
+            return this;
+        }
+
+        public UserBuilder withUserRole(UserRole userRole){
+            newUserDto.userRole = userRole;
+            return this;
+        }
+
+        public UserBuilder withNotes(Set<NoteDao> notes){
+            newUserDto.notes = notes;
+            return this;
+        }
+
+        public UserDto build(){
+            return newUserDto;
+        }
+    }
 }

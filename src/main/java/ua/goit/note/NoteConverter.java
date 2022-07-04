@@ -15,13 +15,14 @@ public class NoteConverter {
     }
 
     public NoteDto toDto(NoteDao dao) {
-        NoteDto dto = new NoteDto();
-        dto.setId(dao.getId());
-        dto.setName(dao.getName());
-        dto.setContent(dao.getContent());
-        dto.setAccessType(dao.getAccessType());
-        dto.setUser(converter.toDto(dao.getUser()));
-        return dto;
+
+        return new NoteDto.NoteBuilder()
+                .withId(dao.getId())
+                .withName(dao.getName())
+                .withContent(dao.getContent())
+                .withAccessType(dao.getAccessType())
+                .withUser(converter.toDto(dao.getUser()))
+                .build();
     }
 
     public NoteDao toDao(NoteDto dto) {
