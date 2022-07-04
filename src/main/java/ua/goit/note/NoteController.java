@@ -131,8 +131,8 @@ public class NoteController {
         return "findNoteForm";
     }
 
-    @RequestMapping(path = "/find/name")
-    public String getVendor(@RequestParam(value = "name", required = false) String name, Model model, Authentication authentication) {
+    @GetMapping(path = "/find/name")
+    public String getNote(@RequestParam(value = "name", required = false) String name, Model model, Authentication authentication) {
         try {
             UserDto user = userService.loadUserByUserName(authentication.getName());
             NoteDto note = noteService.findByName(name, user.getUsername());
